@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: alert-deployment
+  namespace: stock
+spec:
+  replicas: 1
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: alert
+  template:
+    metadata:
+      annotations:
+        git-tag: {TAG}
+      labels:
+        app: alert
+    spec:
+      restartPolicy: Always
+      imagePullSecrets:
+        - name: regcred
+      containers:
+        - name: alert 
+          image: artifacts.tekuro.io/alert:latest
+          env:
+            - name: ALERT_CHANNEL
+              valueFrom:
+                configMapKeyRef:
+                  name: alert-config
+                  key: ALERT_CHANNEL
+            - name: ALERT_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: alert-config
+                  key: ALERT_PORT
+            - name: DISCORD_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: discord-secret
+                  key: API-KEY
