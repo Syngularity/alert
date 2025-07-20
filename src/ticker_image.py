@@ -31,10 +31,11 @@ def create_stock_alert_image(ticker, price, multiplier, float_value, volume, out
 
     # Define colors
     COLOR_BG_DARK_START = "#1A202C"  # A very dark gray (similar to Tailwind gray-900)
-    COLOR_BG_DARK_END = "#03baa7"    # The vibrant teal provided by you for the flare
-
+    COLOR_BG_DARK_END = "#4181b4"    # The vibrant teal provided by you for the flare
+    COLOR_FLOAT = "#cce1fc"
+    COLOR_PALETTE_MULT = "#24948c"
     COLOR_TEXT_WHITE = "#FFFFFF"
-    COLOR_ACCENT_EMERALD = "#34D399"
+    COLOR_ACCENT_EMERALD = "#49b9de"
     COLOR_ACCENT_BLUE = "#60A5FA"
     COLOR_ACCENT_TEAL = "#2DD4BF"
     COLOR_BORDER = "#4B5563"
@@ -129,8 +130,8 @@ def create_stock_alert_image(ticker, price, multiplier, float_value, volume, out
     multiplier_text = f"Mult: {multiplier:.1f}x" # Corrected label back to "Mult"
     multiplier_bbox = draw.textbbox((0, 0), multiplier_text, font=font_stats)
     multiplier_x = stats_x_center - (multiplier_bbox [2] - multiplier_bbox [0]) // 2
-    draw.text((multiplier_x, stats_y), multiplier_text, font=font_stats, fill=COLOR_ACCENT_TEAL)
-    stats_y += line_height + 10 # Larger gap before float/volume
+    draw.text((multiplier_x, stats_y), multiplier_text, font=font_stats, fill=COLOR_PALETTE_MULT)
+    stats_y += line_height + 20 # Larger gap before float/volume
 
     # Float and Volume (Side by side below Price and Multiplier)
     float_condensed = condense_number(float_value)
@@ -152,8 +153,8 @@ def create_stock_alert_image(ticker, price, multiplier, float_value, volume, out
     volume_x = float_x + float_text_width + gap_between_float_volume
 
     # Changed colors back to ACCENT_BLUE for visibility
-    draw.text((float_x, stats_y), float_text, font=font_stats, fill=COLOR_BG_DARK_START)
-    draw.text((volume_x, stats_y), volume_text, font=font_stats, fill=COLOR_BG_DARK_START)
+    draw.text((float_x, stats_y), float_text, font=font_stats, fill=COLOR_FLOAT)
+    draw.text((volume_x, stats_y), volume_text, font=font_stats, fill=COLOR_FLOAT)
 
 
     # --- Return Image Data or Save to File ---
