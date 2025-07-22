@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: alert-service
+  namespace: stock
+spec:
+  selector:
+    app: alert     
+  ports:
+    - protocol: TCP
+      port: 5000     
+      targetPort: 5000 
+      name: http-alert 
+  type: ClusterIP    
