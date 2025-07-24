@@ -15,7 +15,7 @@ app = Flask(__name__)
 def send_discord_message_endpoint():
     data = request.get_json()
 
-    required_fields = ['ticker', 'price', 'multiplier', 'float_value', 'volume']
+    required_fields = ['ticker', 'price', 'multiplier', 'float_value', 'volume', 'tier', 'phase']
     for field in required_fields:
         if field not in data:
             return jsonify({"error": f"Missing required field: '{field}'"}), 400
@@ -25,13 +25,17 @@ def send_discord_message_endpoint():
     multiplier = data['multiplier']
     float_value = data['float_value']
     volume = data['volume']
+    tier = data['volume']
+    phase = data['volume']
 
     payload = {
         'ticker': ticker,
         'price': price,
         'multiplier': multiplier,
         'float_value': float_value,
-        'volume': volume
+        'volume': volume,
+        'tier': tier,
+        'phase': phase
     }
 
     try:

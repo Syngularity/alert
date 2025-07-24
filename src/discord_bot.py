@@ -38,12 +38,16 @@ async def on_ready():
 
     bot.loop.create_task(process_flask_messages())
 
-async def send_alert(ticker: str, price: float, multiplier: float, float_value: float, volume: float):
+async def send_alert(ticker: str, price: float, multiplier: float, float_value: float, volume: float, tier: str, phase: str ):
     image_name = None
     try:
 
+        vol_float_percentage = round((volume / float_value) * 100, 2)
+
+
         message = (
-            f"📈 Stock Alert! **{ticker}** hitting new momentum!\n"
+            f"📈 Stock Alert! {tier} **{ticker}** hitting new momentum!\n"
+            f"During: **${phase}** Volume Ratio hit {vol_float_percentage}\n"
             f"Current Price: **${price:.2f}**\n"
             f"Multiplier: {multiplier:.1f}x\n"
             f"Float: {float_value:,.0f}\n" # Formatted for readability
@@ -94,8 +98,10 @@ async def process_flask_messages():
         multiplier = payload.get('multiplier')
         float_value = payload.get('float_value')
         volume = payload.get('volume')
+        tier = payload.get('tier')
+        phase = payload.get('phase')
 
-        await send_alert(ticker, price, multiplier, float_value, volume)
+        await send_alert(ticker, price, multiplier, float_value, volume, tier, phase)
         
         bot.message_queue.task_done() 
 
