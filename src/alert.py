@@ -25,8 +25,8 @@ def send_discord_message_endpoint():
     multiplier = data['multiplier']
     float_value = data['float_value']
     volume = data['volume']
-    tier = data['volume']
-    phase = data['volume']
+    tier = data['tier']
+    phase = data['phase']
 
     payload = {
         'ticker': ticker,
