@@ -38,7 +38,7 @@ async def on_ready():
 
     bot.loop.create_task(process_flask_messages())
 
-async def send_alert(ticker: str, price: float, multiplier: float, float_value: float, volume: float, tier: str, phase: str ):
+async def send_alert(ticker: str, price: float, multiplier: float, float_value: float, volume: float, tier: str, phase: str, level: str = "LOW"):
     image_name = None
     try:
 
@@ -47,10 +47,10 @@ async def send_alert(ticker: str, price: float, multiplier: float, float_value: 
             "MEDIUM": "🟡",  
             "HIGH": "🔴"      
         }
+        
         icon = TIER_ICONS.get(tier, "⚪")
 
         vol_float_percentage = round((volume / float_value) * 100, 2)
-
 
         message = (
             f"🚨 **{tier} Alert {icon}**   **{ticker}** hitting new momentum!\n"
@@ -66,10 +66,9 @@ async def send_alert(ticker: str, price: float, multiplier: float, float_value: 
         if channel:
             image_name = f"alert_{uuid.uuid4()}.png"
 
-            create_stock_alert_image(ticker, price, multiplier, float_value, volume, output_filename=image_name)
+            create_stock_alert_image(ticker, price, multiplier, float_value, volume, level, output_filename=image_name)
             await channel.send(message, file=discord.File(image_name))
             print(f"Successfully sent alert for {ticker} and image: {image_name}")
-
 
             if os.path.exists(image_name):
                 os.remove(image_name)

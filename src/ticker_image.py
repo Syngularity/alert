@@ -10,7 +10,7 @@ def condense_number(n):
     else:
         return str(int(n))
 
-def create_stock_alert_image(ticker, price, multiplier, float_value, volume, output_filename=None):
+def create_stock_alert_image(ticker, price, multiplier, float_value, volume, level, output_filename=None):
     """
     Creates a condensed stock alert image with a smooth gradient background.
     Can either save to a file or return image bytes in memory.
@@ -31,7 +31,14 @@ def create_stock_alert_image(ticker, price, multiplier, float_value, volume, out
 
     # Define colors
     COLOR_BG_DARK_START = "#1A202C"  # A very dark gray (similar to Tailwind gray-900)
-    COLOR_BG_DARK_END = "#4181b4"    # The vibrant teal provided by you for the flare
+
+    COLOR_BG_DARK_END = {
+        "LOW": "#00c74c",      # dark grayish blue
+        "MEDIUM": "#e4fd00",   # slightly brighter
+        "HIGH": "#da0117",     # aggressive red tone
+    }
+
+ 
     COLOR_FLOAT = "#cce1fc"
     COLOR_PALETTE_MULT = "#24948c"
     COLOR_TEXT_WHITE = "#FFFFFF"
@@ -55,9 +62,9 @@ def create_stock_alert_image(ticker, price, multiplier, float_value, volume, out
     start_g = int(COLOR_BG_DARK_START.lstrip('#')[2:4], 16)
     start_b = int(COLOR_BG_DARK_START.lstrip('#')[4:6], 16)
 
-    end_r = int(COLOR_BG_DARK_END.lstrip('#')[0:2], 16)
-    end_g = int(COLOR_BG_DARK_END.lstrip('#')[2:4], 16)
-    end_b = int(COLOR_BG_DARK_END.lstrip('#')[4:6], 16)
+    end_r = int(COLOR_BG_DARK_END.get(level, "#2e3440").lstrip('#')[0:2], 16)
+    end_g = int(COLOR_BG_DARK_END.get(level, "#2e3440").lstrip('#')[2:4], 16)
+    end_b = int(COLOR_BG_DARK_END.get(level, "#2e3440").lstrip('#')[4:6], 16)
 
     for y in range(img_height):
         # Calculate blend factor across the entire image height
