@@ -42,12 +42,19 @@ async def send_alert(ticker: str, price: float, multiplier: float, float_value: 
     image_name = None
     try:
 
+        TIER_ICONS = {
+            "LOW": "🟢", 
+            "MEDIUM": "🟡",  
+            "HIGH": "🔴"      
+        }
+        icon = TIER_ICONS.get(tier, "⚪")
+
         vol_float_percentage = round((volume / float_value) * 100, 2)
 
 
         message = (
-            f"📈 Stock Alert! {tier} **{ticker}** hitting new momentum!\n"
-            f"During: **{phase}** Volume Ratio hit **{vol_float_percentage}**\n"
+            f"🚨 **{tier} Alert {icon}** for **{ticker}** hitting new momentum!\n"
+            f"During: **{phase}** Volume Ratio hit **{vol_float_percentage}** 📈\n"
             f"Current Price: **${price:.2f}**\n"
             f"Multiplier: {multiplier:.1f}x\n"
             f"Float: {float_value:,.0f}\n" # Formatted for readability
