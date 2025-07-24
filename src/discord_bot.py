@@ -53,7 +53,7 @@ async def send_alert(ticker: str, price: float, multiplier: float, float_value: 
 
 
         message = (
-            f"🚨 **{tier} Alert {icon}** for **{ticker}** hitting new momentum!\n"
+            f"🚨 **{tier} Alert {icon}**   **{ticker}** hitting new momentum!\n"
             f"During: **{phase}** Volume Ratio hit **{vol_float_percentage}** 📈\n"
             f"Current Price: **${price:.2f}**\n"
             f"Multiplier: {multiplier:.1f}x\n"
