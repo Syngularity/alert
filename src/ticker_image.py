@@ -34,8 +34,8 @@ def create_stock_alert_image(ticker, price, multiplier, float_value, volume, lev
 
     COLOR_BG_DARK_END = {
         "LOW": "#00c74c",      # dark grayish blue
-        "MEDIUM": "#e4fd00",   # slightly brighter
-        "HIGH": "#da0117",     # aggressive red tone
+        "MEDIUM": "#af8600",   # slightly brighter
+        "HIGH": "#800410",     # aggressive red tone
     }
 
  
