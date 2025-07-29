@@ -59,7 +59,7 @@ async def send_alert(ticker: str, price: float, multiplier: float, float_value: 
             f"Multiplier: {multiplier:.1f}x\n"
             f"Float: {float_value:,.0f}\n" # Formatted for readability
             f"Volume: {volume:,.0f}\n\n" # Formatted for readability
-            f"View more details: <https://fjord.tekuro.io/>" # Link without preview
+            f"View more details: <https://fjord.tekuro.io/multichart?t={ticker}>" # Link without preview
         )
         
         channel = bot.get_channel(ALERT_CHANNEL_ID)
